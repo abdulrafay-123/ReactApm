@@ -1,0 +1,615 @@
+
+/* App.css */
+.dashboard-header {
+  background-color: #1F2937;
+  color: #d3caca;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  height: 60px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border-bottom-right-radius: 10px; /* Rounded bottom-right corner */
+}
+.dashboard-header h1 {
+  font-weight: bold;
+  margin: 0;
+  font-size: 1.9em; /* Slightly increased font size */
+  flex-shrink: 0;
+  font-weight: 600; /* Lighter font-weight for a modern look */
+  letter-spacing: 1px; /* Added letter-spacing */
+}
+
+.dashboard-header .time-picker {
+  background-color: #1F2937;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-left: auto;
+  margin-right: 60px;
+  color: #fff;
+}
+
+
+.dashboard {
+  display: flex;
+  margin-top: 45px;
+  padding-top: 20px;
+  background-color: #111827; /* Light background for contrast */
+}
+
+.dashboard-aside {
+  background-color: #1F2937; /* Darker sidebar for focus */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px); /* Full height minus header */
+  width: 60px; /* Increased width */
+  position: sticky;
+  top: 60px;
+  transition: width 0.3s ease; /* Smoother transition */
+  border-top-left-radius: 4px;
+}
+
+.dashboard-aside:hover {
+  width: 200px;
+}
+
+.icon-item {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 10px;
+  transition: transform 0.3s ease; /* Animation for icon movement */
+}
+
+.icon-item:hover {
+  transform: translateX(5px); /* Moves icon to the right when hovered */
+}
+
+.icon-item span {
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease, max-width 0.5s ease;
+}
+
+.icon-item:hover span {
+  max-width: 150px;
+  opacity: 1;
+}
+
+.dashboard-main {
+  flex-grow: 1;
+  padding: 20px;
+  transition: all 0.3s ease; /* Smooth transition for padding */
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure space between content and icon */
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tile-content {
+  flex: 1; /* Allows the content area to take up the available space */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns the text to the left */
+}
+
+.tile-icon {
+  /* Keeps the icon to the right */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   
+}
+
+.tile-heading {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+
+/* Updated color schemes for tiles */
+.green-border { border-color: #4CAF50; }
+.green-bg { background-color: #e8f5e9; }
+
+.yellow-border { border-color: #FFEB3B; }
+.yellow-bg { background-color: #fffde7; }
+
+.red-border { border-color: #F44336; }
+.red-bg { background-color: #ffebee; }
+
+.graphs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.graph {
+  background-color: #25303b;
+  overflow-x: auto;
+  color: #fff;
+  flex-basis: calc(50% - 10px); /* Adjust the percentage as needed, subtract the gap */
+  max-width: calc(50% - 10px); /* Adjust the percentage as needed, subtract the gap */
+  box-sizing: border-box;
+  margin-bottom: 20px; /* Space below each row of graphs */
+  padding: 10px;
+  height: 350px; /* Height will be determined by content */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .graph {
+    flex-basis: 100%; /* Full width on smaller screens */
+    max-width: 100%; /* Full width on smaller screens */
+  }
+}
+
+
+
+
+#latencyChart, #throughputChart {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+}
+
+.more-options {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.options-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 150;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.options-menu li {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #333;
+  text-align: center;
+}
+
+.options-menu li:hover {
+  background-color: #f1f1f1;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Slight adjustment for better visibility */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Ensure modal is on top */
+}
+
+.modal-content {
+  position: relative;
+  background: #fff;
+  width: 90%; /* Close to full width for better usage of space */
+  height: 90%; /* Similarly, close to full height */
+  max-width: 1200px; /* Allows for large screens */
+  max-height: 800px; /* Allows for large screens */
+  border-radius: 8px;
+  overflow: auto; /* Allows scrolling if necessary */
+  display: flex;
+  flex-direction: column;
+  padding: 20px; /* Retain padding for spacing */
+}
+
+
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.dashboard {
+  background-color: #111827; /* Light grey color */
+}
+.icon-item {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 10px;
+  transition: transform 0.3s ease; /* Animation for icon movement */
+}
+
+.icon-item:hover {
+  transform: translateX(5px); /* Moves icon to the right when hovered */
+}
+
+.icon-item span {
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease, max-width 0.5s ease;
+}
+
+.icon-item:hover span {
+  max-width: 150px;
+  opacity: 1;
+}
+
+.dashboard-main {
+  flex-grow: 1;
+  padding: 20px;
+  transition: all 0.3s ease; /* Smooth transition for padding */
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.tile {
+  background-color: #25303b;
+  color: #ffffff;
+  border: 2px solid #1f2a3e;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.tile-heading {
+  font-weight: 400;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+@keyframes pulse {
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.tile-icon {
+  font-size: 24px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  animation: pulse 2s ease-out infinite; /* Apply the pulse animation */
+}
+
+.tile-icon:before,
+.tile-icon:after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: currentColor; /* Use current text color */
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.tile-icon:before {
+  animation: pulse 2s ease-out infinite;
+}
+
+.tile-icon:after {
+  animation: pulse 4s 2s ease-out infinite;
+}
+
+
+/* Color-specific classes for icons */
+.tile-icon.green {
+  color: #4CAF50;
+}
+
+.tile-icon.yellow {
+  color: #FFEB3B;
+}
+
+.tile-icon.red {
+  color: #F44336;
+}
+
+/* Updated color schemes for tiles */
+.green-border { border-color: #4CAF50; }
+.green-bg { background-color: #e8f5e9; }
+
+.yellow-border { border-color: #FFEB3B; }
+.yellow-bg { background-color: #fffde7; }
+
+.red-border { border-color: #F44336; }
+.red-bg { background-color: #ffebee; }
+
+.graphs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.graph {
+  background-color: #1F2937;
+  overflow-x: auto;
+  color: #fff;
+  flex-basis: calc(50% - 10px); /* Adjust the percentage as needed, subtract the gap */
+  max-width: calc(50% - 10px); /* Adjust the percentage as needed, subtract the gap */
+  box-sizing: border-box;
+  margin-bottom: 20px; /* Space below each row of graphs */
+  padding: 10px;
+  height: 350px; /* Height will be determined by content */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .graph {
+    flex-basis: 100%; /* Full width on smaller screens */
+    max-width: 100%; /* Full width on smaller screens */
+  }
+}
+
+
+
+
+#latencyChart, #throughputChart {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.more-options {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.options-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 150;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.options-menu li {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #333;
+  text-align: center;
+}
+
+.options-menu li:hover {
+  background-color: #f1f1f1;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Darkened the overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+.modal-content {
+  position: relative;
+  background: #333; /* Dark background for the content */
+  color: #fff; /* Ensure text is readable */
+  padding: 20px;
+  width: 90%; /* Responsive width */
+  max-width: 900px;
+  height: 400px; /* Adaptive height */
+  border-radius: 8px;
+  overflow: hidden; /* Handle overflow for larger charts */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+
+/* Existing header and dashboard styles remain unchanged */
+
+/* Modal for the date picker */
+.time-picker {
+  position: relative;
+  display: inline-block;
+  margin-right: 60px;
+}
+
+.time-picker-button {
+  background-color: #1d252d;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.date-picker-modal {
+  position: absolute;
+  top: 40px; /* Position it right below the toggle button */
+  right: 5px;
+  background-color: #1d252d;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  z-index: 1050;
+  width: 240px; /* Adjusted width for better layout */
+  transform: translateX(-1%); /* Moves it left by its own width */
+}
+
+.date-picker-modal .custom-date-range,
+.date-picker-modal .predefined-ranges {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%; /* Ensures full width use within the modal */
+}
+
+.date-picker-modal .predefined-ranges ul {
+  list-style: none;
+  padding: 0;
+  margin: 5px 0;
+}
+
+.date-picker-modal .predefined-ranges li {
+  padding: 8px 10px;
+  background: #1d252d;
+  border: 1px solid #ddd;
+  margin-bottom: 3px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.85em;
+  width: 200px;
+}
+
+.date-picker-modal .predefined-ranges li:hover {
+  background-color: #3b3b3b;
+}
+
+.date-picker-modal button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  align-self: center;
+  margin-top: 5px;
+}
+
+.date-picker-modal button:hover {
+  background-color: #4a4a4a;
+}
+
+/* Specific styling for the React Date Picker */
+.react-datepicker {
+  font-size: 0.9em;
+  border: none; /* Remove any default borders */
+  width: 100%;
+}
+
+.react-datepicker__input-container {
+  margin-bottom: 5px;
+}
+
+.react-datepicker__time-container {
+  border-left: 1px solid #aeaeae;
+}
+
+
+.react-datepicker__navigation {
+  top: 1px; /* Position arrows correctly in relation to the calendar */
+  width: 30px; /* Ensure arrows have enough space */
+  height: 30px; /* Ensure arrows have enough space */
+  position: absolute;
+}
+
+.react-datepicker__navigation--previous {
+  left: 10px; /* Adjust left positioning */
+  border-right-color: #fff; /* Arrow color */
+}
+
+.react-datepicker__navigation--next {
+  right: 2px; /* Adjust right positioning */
+  left: 200px;
+  border-left-color: #fff; /* Arrow color */
+}
+
+.grid line {
+  stroke: #e0e0e0; /* Lighter grey color for grid lines */
+  stroke-opacity: 0.2; /* Lower opacity for grid lines */
+  shape-rendering: crispEdges;
+}
+
+.grid path {
+  stroke-width: 0;
+}
